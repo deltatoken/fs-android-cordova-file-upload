@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin id="friendlysol-fsupload"
+        version="1.0.0"
+        xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <name>FriendlySolutions background upload plugin</name>
+
+    <description>
+        This custom plugin allows background service based reliable file upload.
+    </description>
+
+    <license>Apache 2.0</license>
+
+    <!-- android -->
+    <platform name="android">
+        <js-module name="FsUpload" src="www/fsUpload.js">
+            <clobbers target="friendlysol.FsUpload"/>
+        </js-module>
+
+        <js-module name="FsUploadRequest" src="www/fsUploadRequest.js">
+            <clobbers target="friendlysol.FsUploadRequest"/>
+        </js-module>
+
+        <js-module name="FsCompletionStatus" src="www/fsCompletionStatus.js">
+            <clobbers target="friendlysol.FsCompletionStatus"/>
+        </js-module>
+
+        <js-module name="FsUploadErrorType" src="www/fsUploadErrorType.js">
+            <clobbers target="friendlysol.FsUploadErrorType"/>
+        </js-module>
+
+        <framework src="com.android.support:support-v4:22.2.0"/>
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="FsUpload">
+                <param name="android-package"
+                       value="com.friendlysol.fsupload.FsUploadPlugin"/>
+                <param name="onload" value="true"/>
+            </feature>
+
+        </config-file>
+
+        <config-file parent="/manifest" target="AndroidManifest.xml">
+            <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+            <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+            <uses-permission android:name="android.permission.WAKE_LOCK"/>
+        </config-file>
+
+        <config-file parent="/manifest/application" target="AndroidManifest.xml">
+            <service android:name="com.friendlysol.fsupload.FileUploader"/>
+
+            <receiver android:name="com.friendlysol.fsupload.FileUploader$AlarmReceiver">
+                <intent-filter>
+                    <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                    <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                </intent-filter>
+            </receiver>
+
+        </config-file>
+
+        <source-file src="src/android/FsUploadPlugin.java"
+                     target-dir="src/com/friendlysol/fsupload"/>
+        <source-file src="src/android/ApiUploadRequest.java"
+                     target-dir="src/com/friendlysol/fsupload"/>
+        <source-file src="src/android/BasicNameValuePair.java"
+                     target-dir="src/com/friendlysol/fsupload"/>
+        <source-file src="src/android/Config.java"
+                     target-dir="src/com/friendlysol/fsupload"/>
+        <source-file src="src/android/DBException.java"
+                     target-dir="src/com/friendlysol/fsupload"/>
+        <source-file src="src/android/FakeR.java"
+                     target-dir="src/com/friendlysol/fsupload"/>
+        <source-file src="src/android/FileUploader.java"
+                     target-dir="src/com/friendlysol/fsupload"/>
+        <source-file src="src/android/FileUploadRequest.java"
+                     target-dir="src/com/friendlysol/fsupload"/>
+        <source-file src="src/android/IOHelper.java"
+                     target-dir="src/com/friendlysol/fsupload"/>
+        <source-file src="src/android/Log.java"
+                     target-dir="src/com/friendlysol/fsupload"/>
+        <source-file src="src/android/NameValuePair.java"
+                     target-dir="src/com/friendlysol/fsupload"/>
+        <source-file src="src/android/QueueItem.java"
+                     target-dir="src/com/friendlysol/fsupload"/>
+        <source-file src="src/android/StreamRequestListener.java"
+                     target-dir="src/com/friendlysol/fsupload"/>
+        <source-file src="src/android/UploadQueueDatabase.java"
+                     target-dir="src/com/friendlysol/fsupload"/>
+        <source-file src="src/android/UploadError.java"
+                     target-dir="src/com/friendlysol/fsupload"/>
+        <source-file src="src/android/UploadErrors.java"
+                     target-dir="src/com/friendlysol/fsupload"/>
+        <source-file src="src/android/ContentType.java"
+                     target-dir="src/com/friendlysol/fsupload"/>
+    </platform>
+</plugin>

@@ -1,0 +1,3 @@
+include ':plugin-source'
+include ':cordova'
+project(':cordova').projectDir = new File(settingsDir, 'cordova-android/framework')

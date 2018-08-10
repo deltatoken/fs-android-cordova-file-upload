@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin id="friendlysol-fsupload-tests"
+        version="1.0.0"
+        xmlns="http://apache.org/cordova/ns/plugins/1.0">
+    <name>FriendlySolutions FsUpload Plugin Tests</name>
+    <license>Apache 2.0</license>
+    <dependency id="cordova-plugin-file" version=">=3.0.0"/>
+    <js-module name="tests" src="tests.js">
+    </js-module>
+</plugin>
